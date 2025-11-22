@@ -322,6 +322,17 @@
             console.error('Erro detectado:', e.message, 'em', e.filename, 'linha', e.lineno);
         });
 
+    
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+    .then(function(registration) {
+        console.log('Service Worker registrado:', registration);
+    })
+    .catch(function(error) {
+        console.log('Erro ao registrar Service Worker:', error);
+    });
+}
     </script>
 </body>
         </html>

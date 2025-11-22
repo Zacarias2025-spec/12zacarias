@@ -1,112 +1,318 @@
-<!DOCTYPE html><html lang="pt-BR">
-<head>
-    <meta name="monetag" content="7524e9012a78e1c8d7d7fc8b6e49b6ee">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- Monetag Domain Verification -->
-<meta name="monetag" content="7524e9012a78e1c8d7d7fc8b6e49b6ee">
+<!DOCTYPE html>
 
-<title>DZM Corretor de Imóveis</title>
+<html lang="pt">      
+<head>      
+    <meta charset="UTF-8" />      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>      
+    <title>DZM Corretor de Imóveis</title>      
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">      
+    <style>      
+        /* (Mantive os estilos que tinhas, simplifiquei alguns selectors para clareza) */      
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif}      
+        :root{--primary:#2c3e50;--secondary:#3498db;--accent:#e74c3c;--light:#f8f9fa;--dark:#1a2530;--text:#333;--text-light:#7f8c8d}      
+        body{background:var(--light);color:var(--text);line-height:1.6}      
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}      
+        header{background:linear-gradient(135deg,var(--primary),var(--dark));color:#fff;padding:20px 0;position:sticky;top:0;z-index:100}      
+        .logo{text-align:center}      
+        .logo h1{font-size:2rem}      
+        nav{background:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.05)}      
+        .nav-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0}      
+        .nav-links{display:flex;list-style:none}      
+        .nav-links a{margin-left:16px;text-decoration:none;color:var(--primary);font-weight:500;padding:6px 10px;border-radius:4px}      
+        .nav-links a.active{color:var(--secondary);background:rgba(52,152,219,0.08)}      
+        main{padding:30px 0;min-height:calc(100vh - 220px)}      
+        .hero{background:linear-gradient(rgba(44,62,80,0.85),rgba(44,62,80,0.85)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80');background-size:cover;background-position:center;color:#fff;padding:70px 20px;border-radius:10px;text-align:center;margin-bottom:20px}      
+        .btn{display:inline-block;background:var(--secondary);color:#fff;padding:10px 22px;border-radius:6px;text-decoration:none;font-weight:600;border:none;cursor:pointer}      
+        .about{background:#fff;padding:24px;border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,0.05);margin-bottom:30px}      
+        .contact-info{background:var(--light);padding:12px;border-radius:6px;border-left:4px solid var(--secondary);margin-top:12px}      
+        .page{display:none}      
+        .page.active{display:block}      
+        .page-title{text-align:center;color:var(--primary);font-size:1.6rem;margin-bottom:18px}      
+        .categories{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px}      
+        .category-btn{background:#fff;border:1px solid #ddd;padding:8px 14px;border-radius:30px;cursor:pointer}      
+        .category-btn.active{background:var(--secondary);color:#fff;border-color:var(--secondary)}      
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}      
+        .product-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.05);transition:transform .2s}      
+        .product-card:hover{transform:translateY(-4px)}      
+        .product-image{height:180px;overflow:hidden;position:relative}      
+        .product-image img{width:100%;height:100%;object-fit:cover;display:block}      
+        .product-category{position:absolute;top:10px;right:10px;background:var(--secondary);color:#fff;padding:6px 10px;border-radius:20px;font-size:.8rem}      
+        .product-info{padding:14px}      
+        .product-name{font-weight:700;color:var(--primary);margin-bottom:8px}      
+        .product-price{color:var(--accent);font-weight:800;margin-bottom:12px}      
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;padding:20px}      
+        .modal-content{background:#fff;border-radius:8px;max-width:900px;width:100%;padding:18px;max-height:90vh;overflow:auto;position:relative}      
+        .close-modal{position:absolute;right:14px;top:10px;font-size:1.3rem;cursor:pointer;color:var(--text-light)}      
+        .product-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:10px}      
+        .product-gallery img{width:100%;height:90px;object-fit:cover;border-radius:4px;cursor:pointer}      
+        .webview-container{display:none;position:fixed;inset:0;background:#fff;z-index:2000;flex-direction:column}      
+        .webview-header{background:var(--primary);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}      
+        .webview-close{background:none;border:none;color:#fff;cursor:pointer}      
+        footer{background:var(--dark);color:#fff;padding:30px 0;margin-top:18px}      
+        .footer-content{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}      
+        .footer-section{min-width:220px}      
+        .copyright{text-align:center;padding-top:14px;opacity:.8;font-size:.9rem;border-top:1px solid rgba(255,255,255,0.06);margin-top:12px}      
+        @media(max-width:768px){.nav-container{flex-direction:column}.hero{padding:40px}.products-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}}      
+    </style>      
+</head>  
+    <script>
+(function(s){
+    s.dataset.zone='10224114',
+    s.src='https://groleegni.net/vignette.min.js'
+})(
+    [document.documentElement, document.body]
+    .filter(Boolean)
+    .pop()
+    .appendChild(document.createElement('script'))
+)
+    </script>
+<body> 
+)
+</script>     
+    <header>      
+        <div class="container">      
+            <div class="logo">      
+                <h1>DZM Corretor de Imóveis</h1>      
+                <p>Zacarias intermediário mais rápido oh Executivo</p>      
+            </div>      
+        </div>      
+    </header>  <nav>      
+    <div class="container nav-container">      
+        <div class="nav-links" role="navigation">      
+            <a href="#" data-page="home" class="active">Apresentação</a>      
+            <a href="#" data-page="products">Produtos</a>      
+        </div>      
+    </div>      
+</nav>    <main class="container">      
+    <div id="home-page" class="page active">      
+        <section class="hero">      
+            <h2>DZM Corretor de Imóveis</h2>      
+            <p>Conectando você às melhores oportunidades em Cabinda</p>      
+            <button id="view-products-btn" class="btn" style="margin-top:12px">Ver Produtos</button>      
+        </section>    <section class="about">      
+        <h2>Sobre Zacarias</h2>      
+        <p>Zacarias é um intermediário experiente, atuando há mais de 4 anos no mercado de Cabinda. Reconhecido pela sua seriedade, transparência e capacidade de conectar clientes às melhores oportunidades.</p>      
+        <div class="contact-info">      
+            <p><i class="fas fa-phone"></i> <strong>Telefone:</strong> 924 829 157</p>      
+            <p><i class="fas fa-map-marker-alt"></i> <strong>Cidade:</strong> Cabinda</p>      
+        </div>      
+    </section>      
+</div>      <div id="products-page" class="page">      
+    <h2 class="page-title">Nossos Produtos</h2>      
+    <div class="categories" id="categories">      
+        <button class="category-btn active" data-category="all">Todos</button>      
+        <button class="category-btn" data-category="casas">Casas</button>      
+        <button class="category-btn" data-category="terrenos">Terrenos</button>      
+        <button class="category-btn" data-category="carros">Carros</button>      
+        <button class="category-btn" data-category="telefone">Telefone</button>      
+        <button class="category-btn" data-category="outros">Outros</button>      
+    </div>      <div class="products-grid" id="products-container"></div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</div>  </main>    <!-- Modal -->    <div class="modal" id="product-modal" aria-hidden="true">      
+    <div class="modal-content" role="dialog" aria-modal="true">      
+        <span class="close-modal" id="close-modal">&times;</span>      
+        <div id="modal-content"></div>      
+    </div>      
+</div>    <!-- WebView -->    <div class="webview-container" id="webview">      
+    <div class="webview-header">      
+        <div class="webview-title">Anúncio</div>      
+        <button class="webview-close" id="close-webview"><i class="fas fa-times"></i> Fechar</button>      
+    </div>      
+    <iframe id="webview-frame" class="webview-frame" style="flex:1;border:none" src="about:blank" title="Anúncio"></iframe>      
+</div>    <footer>      
+    <div class="container">      
+        <div class="footer-content">      
+            <div class="footer-section">      
+                <h3>DZM Corretor de Imóveis</h3>      
+                <p>Zacarias - Intermediário experiente em Cabinda</p>      
+                <p><i class="fas fa-phone"></i> 924 829 157</p>      
+            </div>      
+            <div class="footer-section">      
+                <h3>Contato</h3>      
+                <p><i class="fas fa-map-marker-alt"></i> Cidade: Cabinda</p>      
+            </div>      
+            <div class="footer-section">      
+                <h3>Criador do Site</h3>      
+                <p><i class="fab fa-whatsapp"></i> WhatsApp: 997711838</p>      
+            </div>      
+        </div>      
+        <div class="copyright">      
+            &copy; 2023 DZM Corretor de Imóveis. Todos os direitos reservados.      
+        </div>      
+    </div>      
+</footer>    <script>      
+    /* Dados (os mesmos que tinhas) */      
+    const products = [      
+        { id:1, name:"Apartamento T3", category:"casas", price:"18.000.000 Kz", description:"Apartamento A Venda Na Cidade Sendo De Tipologia T3: Três Quartos, Sala, Cozinha, WC, Varanda. Tudo Limpo Forrado e Mosaico.", location:"Cabinda [Prédio Dos Solteiros]", images:["https://i.ibb.co/C5XSBfFb/apartamento1.jpg","https://i.ibb.co/0VXBWSbQ/apartamento2.jpg","https://i.ibb.co/Qjn6xKgD/apartamento3.jpg","https://i.ibb.co/KcJcMjZy/apartamento4.jpg"]},      
+        { id:2, name:"Casa T4 Mobilada", category:"casas", price:"350.000 Kz (negociável)", description:"Arrenda-se Residência T4 Mobilada. Localização: 4 de Abril. Tipologia: T4 – 4 Quartos. Totalmente mobilada...", contact:"935 544 477", images:["https://i.ibb.co/j9cPZmtx/casa1.jpg","https://i.ibb.co/Sw3Jjj3K/casa2.jpg","https://i.ibb.co/hR7ZbX4t/casa3.jpg","https://i.ibb.co/s9HzD5RZ/casa4.jpg"]},      
+        { id:3, name:"Terreno 30/60 Metros", category:"terrenos", price:"20.000.000 Kz", description:"Vendo Este Terreno Super Localizado Em Área Estratégica. Medidas: 30/60 Metros...", images:["https://i.ibb.co/kgxD6pvN/terreno1.jpg","https://i.ibb.co/QvSPPgML/terreno2.jpg","https://i.ibb.co/7dFzgW3C/terreno3.jpg","https://i.ibb.co/BKtPnR5G/terreno4.jpg","https://i.ibb.co/Rpx5fZwD/terreno5.jpg","https://i.ibb.co/zVVr5cpS/terreno6.jpg"]},      
+        { id:4, name:"Telefone 1", category:"telefone", price:"60.000 Kz", description:"Telefone Tudo Limpo e Operacional Com Direito Ao Carregador Semi Nova Na Caixa. GPS: Amilcar.", images:["https://i.ibb.co/pBT8RDfp/telefone1.jpg","https://i.ibb.co/rfmZVs06/telefone2.jpg","https://i.ibb.co/W4R7nrP3/telefone3.jpg"]},      
+        { id:5, name:"Kit de Ferramentas Hilti", category:"outros", price:"1.042.015 Kz", description:"Tudo completo (com extras): 1x Martelo perf. TE 3-M 230V New...", images:["https://i.ibb.co/Z73Zr85/ferramenta1.jpg","https://i.ibb.co/KzLLvtd4/ferramenta2.jpg","https://i.ibb.co/Z1WZNb8Q/ferramenta3.jpg"]},      
+        { id:6, name:"Kia Soul", category:"carros", price:"5.800.000 Kz (negociável)", description:"VENDO KIA SOUL: AC NÃO TRABALHA MAS COMPRESSOR NO LUGAR, MOTOR SELADO...", images:["https://i.ibb.co/fYQd72JZ/kia1.jpg","https://i.ibb.co/7JccRrbN/kia2.jpg","https://i.ibb.co/7twWPCFZ/kia3.jpg","https://i.ibb.co/Kjt48ZTp/kia4.jpg"]},      
+        { id:7, name:"Hilux", category:"carros", price:"4.500.000 Kz (negociável)", description:"Vendo Esta Hilux. Motor Seco, Pintura Limpa. Obs: Com Problema De Turbo...", images:["https://i.ibb.co/rGZTdvy4/hilux1.jpg","https://i.ibb.co/mFFXC5Px/hilux2.jpg"]},      
+        { id:8, name:"Hyundai i10", category:"carros", price:"5.000.000 Kz", description:"Vendo Está Viatura I10 1.2. Motor Seco, Caixa Automática...", images:["https://i.ibb.co/vvwv069F/i101.jpg","https://i.ibb.co/C3PXgrQz/i102.jpg","https://i.ibb.co/7txsQ6PB/i103.jpg","https://i.ibb.co/N6rVwsYz/i104.jpg","https://i.ibb.co/V0HM2CDv/i105.jpg","https://i.ibb.co/5xkkQ5DY/i106.jpg"]}      
+    ];      /* Elementos */      
+const navLinks = document.querySelectorAll('.nav-links a');      
+const homePage = document.getElementById('home-page');      
+const productsPage = document.getElementById('products-page');      
+const viewProductsBtn = document.getElementById('view-products-btn');      
+const categoriesEl = document.getElementById('categories');      
+const productsContainer = document.getElementById('products-container');      
+const productModal = document.getElementById('product-modal');      
+const modalContent = document.getElementById('modal-content');      
+const closeModalBtn = document.getElementById('close-modal');      
+const webview = document.getElementById('webview');      
+const webviewFrame = document.getElementById('webview-frame');      
+const closeWebviewBtn = document.getElementById('close-webview');      
 
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-    }
+/* Funções de navegação */      
+function showPage(page) {      
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));      
+    if (page === 'home') homePage.classList.add('active');      
+    else productsPage.classList.add('active');      
 
-    header {
-        background: linear-gradient(135deg, #2b2b2b, #000000);
-        color: white;
-        text-align: center;
-        padding: 60px 20px;
-    }
+    navLinks.forEach(link => {      
+        link.classList.toggle('active', link.getAttribute('data-page') === page);      
+    });      
+}      
 
-    header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 10px;
-    }
+navLinks.forEach(link => {      
+    link.addEventListener('click', (e) => {      
+        e.preventDefault();      
+        showPage(link.getAttribute('data-page'));      
+    });      
+});      
 
-    header p {
-        font-size: 1rem;
-        opacity: 0.8;
-    }
+viewProductsBtn.addEventListener('click', (e) => {      
+    e.preventDefault();      
+    // Se preferires abrir um anúncio externo no webview original, muda aqui para showWebview(url)      
+    showPage('products');      
+    window.scrollTo({top:0,behavior:'smooth'});      
+});      
 
-    header a {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 12px 25px;
-        background: #ffcc00;
-        color: #000;
-        font-weight: bold;
-        border-radius: 8px;
-        text-decoration: none;
-        transition: 0.2s;
-    }
+/* Mostrar produtos */      
+function getCategoryLabel(cat){      
+    const map = { 'casas':'Casa','terrenos':'Terreno','carros':'Carro','telefone':'Telefone','outros':'Outros' };      
+    return map[cat] || cat;      
+}      
 
-    header a:hover {
-        background: #e6b800;
-    }
+function displayProducts(category='all'){      
+    productsContainer.innerHTML = '';      
+    const filtered = category === 'all' ? products : products.filter(p => p.category === category);      
+    if(filtered.length === 0){      
+        productsContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:24px">Nenhum produto nesta categoria.</p>';      
+        return;      
+    }      
+    filtered.forEach(product => {      
+        const card = document.createElement('div');      
+        card.className = 'product-card';      
+        card.innerHTML = `      
+            <div class="product-image">      
+                <img src="${product.images && product.images.length ? product.images[0] : 'https://via.placeholder.com/400x300?text=Sem+Imagem'}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Imagem+Não+Disponível'">      
+                <span class="product-category">${getCategoryLabel(product.category)}</span>      
+            </div>      
+            <div class="product-info">      
+                <div class="product-name">${product.name}</div>      
+                <div class="product-price">${product.price || ''}</div>      
+                <button class="btn btn-details" data-id="${product.id}">Ver Detalhes</button>      
+            </div>      
+        `;      
+        productsContainer.appendChild(card);      
+    });      
 
-    .produtos {
-        padding: 40px 20px;
-        max-width: 900px;
-        margin: auto;
-    }
+    // Adicionar listeners às buttons depois de criar os cards      
+    document.querySelectorAll('.btn-details').forEach(btn => {      
+        btn.addEventListener('click', () => {      
+            const id = Number(btn.getAttribute('data-id'));      
+            openProductModal(id);      
+        });      
+    });      
+}      
 
-    .produto-item {
-        background: white;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+// Inicializa com todos os produtos      
+displayProducts('all');      
 
-    .produto-item img {
-        width: 100%;
-        border-radius: 8px;
-    }
+/* Filtro por categorias (event delegation) */      
+categoriesEl.addEventListener('click', (e) => {      
+    const btn = e.target.closest('.category-btn');      
+    if(!btn) return;      
+    // actualizar estado visual      
+    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));      
+    btn.classList.add('active');      
+    const cat = btn.getAttribute('data-category');      
+    displayProducts(cat);      
+});      
 
-    footer {
-        text-align: center;
-        padding: 20px;
-        background: #111;
-        color: white;
-        margin-top: 40px;
-    }
-</style>
+/* Modal de produto */      
+function openProductModal(id){      
+    const product = products.find(p => p.id === id);      
+    if(!product) return;      
+    let html = `<h2>${product.name}</h2>`;      
+    if(product.price) html += `<p class="product-price">${product.price}</p>`;      
+    html += `<p>${product.description || ''}</p>`;      
+    if(product.images && product.images.length){      
+        html += '<h4>Imagens</h4><div class="product-gallery">';      
+        product.images.forEach(img => {      
+            html += `<img src="${img}" alt="${product.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/150x120?text=No+Img'" data-full="${img}">`;      
+        });      
+        html += '</div>';      
+    }      
+    html += '<div class="product-details">';      
+    if(product.location) html += `<p><strong>Localização:</strong> ${product.location}</p>`;      
+    if(product.contact) html += `<p><strong>Contacto:</strong> ${product.contact}</p>`;      
+    html += '</div>';      
+    html += `<div style="margin-top:12px"><button class="btn" id="close-modal-btn">Fechar</button></div>`;      
+    modalContent.innerHTML = html;      
+    productModal.style.display = 'flex';      
+    productModal.setAttribute('aria-hidden','false');      
 
-</head>
-<body><header>
-    <h1>DZM Corretor de Imóveis</h1>
-    <p>Zacarias intermediário mais rápido oh Executivo</p>
-    <a href="#produtos">Ver Produtos</a>
-</header>
+    // clique nas miniaturas abre no webview (ou podes abrir num lightbox)      
+    modalContent.querySelectorAll('.product-gallery img').forEach(imgEl => {      
+        imgEl.addEventListener('click', () => {      
+            // abrir imagem no webview      
+            showWebview(imgEl.dataset.full || imgEl.src);      
+        });      
+    });      
 
-<!-- Exemplo de anúncio Monetag (adicione quando quiser) -->
-<!-- <script src="https://..."></script> -->
+    // ligar botão interno fechar      
+    const closeBtn = document.getElementById('close-modal-btn');      
+    if(closeBtn) closeBtn.addEventListener('click', () => closeProductModal());      
+}      
 
-<section class="produtos" id="produtos">
-    <h2>Produtos</h2>
+function closeProductModal(){      
+    productModal.style.display = 'none';      
+    productModal.setAttribute('aria-hidden','true');      
+    modalContent.innerHTML = '';      
+}      
 
-    <div class="produto-item">
-        <img src="imagem1.jpg" alt="Produto 1" />
-        <h3>Produto 1</h3>
-        <p>Descrição breve do produto.</p>
-    </div>
+closeModalBtn.addEventListener('click', closeProductModal);      
+// fechar clicando fora do conteúdo      
+productModal.addEventListener('click', (e) => {      
+    if(e.target === productModal) closeProductModal();      
+});      
 
-    <div class="produto-item">
-        <img src="imagem2.jpg" alt="Produto 2" />
-        <h3>Produto 2</h3>
-        <p>Descrição breve do produto.</p>
-    </div>
+/* Webview (para abrir anúncios ou imagens) */      
+function showWebview(url){      
+    // proteção: se url vazia, nada      
+    if(!url) return;      
+    webview.style.display = 'flex';      
+    webviewFrame.src = url;      
+    document.body.style.overflow = 'hidden';      
+}      
+function closeWebview(){      
+    webview.style.display = 'none';      
+    webviewFrame.src = 'about:blank';      
+    document.body.style.overflow = 'auto';      
+}      
+closeWebviewBtn.addEventListener('click', closeWebview);      
 
-</section>
+// Se preferires o botão "Ver Produtos" abrir um anúncio externo, substitui a linha showPage('products') acima por:      
+// showWebview('https://otieu.com/4/10215868');      
 
-<footer>
-    © 2025 DZM Corretor de Imóveis
-</footer>
+/* --- DEBUG (opcional): regista erros no console para verificação --- */      
+window.addEventListener('error', function (e) {      
+    console.error('Erro detectado:', e.message, 'em', e.filename, 'linha', e.lineno);      
+});
 
-</body>
-</html>
+</script> 
+</html> 

@@ -1,546 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>DZM Corretor de Imóveis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Estilos Gerais */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #f8f9fa;
-            --dark: #1a2530;
-            --text: #333;
-            --text-light: #7f8c8d;
-        }
-        
-        body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .page {
-            display: none;
-        }
-        
-        .page.active {
-            display: block;
-        }
-        
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .logo {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        
-        .logo h1 {
-            font-size: 2.5rem;
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-        }
-        
-        .logo p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        /* Navegação */
-        nav {
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 20px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-        
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
-        
-        .nav-links a.active {
-            color: var(--secondary);
-            background-color: rgba(52, 152, 219, 0.1);
-        }
-        
-        /* Conteúdo Principal */
-        main {
-            padding: 40px 0;
-            min-height: calc(100vh - 200px);
-        }
-        
-        /* Página de Apresentação */
-        .hero {
-            background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 40px;
-        }
-        
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--secondary);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            border: 2px solid white;
-        }
-        
-        .btn-secondary:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
-        
-        .about {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-        }
-        
-        .about h2 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .about h2:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background-color: var(--secondary);
-        }
-        
-        .about p {
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-        }
-        
-        .contact-info {
-            background-color: var(--light);
-            padding: 25px;
-            border-radius: 8px;
-            margin-top: 25px;
-            border-left: 4px solid var(--secondary);
-        }
-        
-        .contact-info p {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .contact-info i {
-            margin-right: 10px;
-            color: var(--secondary);
-            width: 20px;
-        }
-        
-        /* Página de Produtos */
-        .page-title {
-            color: var(--primary);
-            margin-bottom: 30px;
-            font-size: 2rem;
-            text-align: center;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .page-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background-color: var(--secondary);
-        }
-        
-        .categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-            justify-content: center;
-        }
-        
-        .category-btn {
-            background-color: white;
-            border: 1px solid #ddd;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-        
-        .category-btn:hover, .category-btn.active {
-            background-color: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        
-        .product-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .product-image {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .product-card:hover .product-image img {
-            transform: scale(1.05);
-        }
-        
-        .product-category {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--secondary);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        .product-info {
-            padding: 20px;
-        }
-        
-        .product-name {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        
-        .product-price {
-            color: var(--accent);
-            font-weight: 700;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        
-        /* Modal de Detalhes */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 20px;
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 50px auto;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 10px;
-            padding: 30px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: modalFadeIn 0.3s;
-        }
-        
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-light);
-            transition: color 0.3s;
-        }
-        
-        .close-modal:hover {
-            color: var(--accent);
-        }
-        
-        .product-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .product-gallery img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .product-gallery img:hover {
-            transform: scale(1.05);
-        }
-        
-        .product-description {
-            margin: 20px 0;
-            line-height: 1.7;
-        }
-        
-        .product-details {
-            background-color: var(--light);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-        }
-        
-        /* WebView */
-        .webview-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            z-index: 2000;
-            display: none;
-            flex-direction: column;
-        }
-        
-        .webview-header {
-            background-color: var(--primary);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .webview-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .webview-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        
-        .webview-close:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
-        
-        .webview-content {
-            flex: 1;
-            border: none;
-            width: 100%;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 40px 0 20px;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-        
-        .footer-section {
-            flex: 1;
-            min-width: 250px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-section h3 {
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            color: var(--secondary);
-        }
-        
-        .footer-section p {
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
-        
-        .footer-section a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-section a:hover {
-            color: var(--secondary);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-        
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-            }
-            
-            .nav-links {
-                margin-top: 15px;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .modal-content {
-                width: 95%;
-                padding: 20px;
-            }
-        }
+        /* (Mantive os estilos que tinhas, simplifiquei alguns selectors para clareza) */
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif}
+        :root{--primary:#2c3e50;--secondary:#3498db;--accent:#e74c3c;--light:#f8f9fa;--dark:#1a2530;--text:#333;--text-light:#7f8c8d}
+        body{background:var(--light);color:var(--text);line-height:1.6}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        header{background:linear-gradient(135deg,var(--primary),var(--dark));color:#fff;padding:20px 0;position:sticky;top:0;z-index:100}
+        .logo{text-align:center}
+        .logo h1{font-size:2rem}
+        nav{background:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.05)}
+        .nav-container{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+        .nav-links{display:flex;list-style:none}
+        .nav-links a{margin-left:16px;text-decoration:none;color:var(--primary);font-weight:500;padding:6px 10px;border-radius:4px}
+        .nav-links a.active{color:var(--secondary);background:rgba(52,152,219,0.08)}
+        main{padding:30px 0;min-height:calc(100vh - 220px)}
+        .hero{background:linear-gradient(rgba(44,62,80,0.85),rgba(44,62,80,0.85)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80');background-size:cover;background-position:center;color:#fff;padding:70px 20px;border-radius:10px;text-align:center;margin-bottom:20px}
+        .btn{display:inline-block;background:var(--secondary);color:#fff;padding:10px 22px;border-radius:6px;text-decoration:none;font-weight:600;border:none;cursor:pointer}
+        .about{background:#fff;padding:24px;border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,0.05);margin-bottom:30px}
+        .contact-info{background:var(--light);padding:12px;border-radius:6px;border-left:4px solid var(--secondary);margin-top:12px}
+        .page{display:none}
+        .page.active{display:block}
+        .page-title{text-align:center;color:var(--primary);font-size:1.6rem;margin-bottom:18px}
+        .categories{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px}
+        .category-btn{background:#fff;border:1px solid #ddd;padding:8px 14px;border-radius:30px;cursor:pointer}
+        .category-btn.active{background:var(--secondary);color:#fff;border-color:var(--secondary)}
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+        .product-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.05);transition:transform .2s}
+        .product-card:hover{transform:translateY(-4px)}
+        .product-image{height:180px;overflow:hidden;position:relative}
+        .product-image img{width:100%;height:100%;object-fit:cover;display:block}
+        .product-category{position:absolute;top:10px;right:10px;background:var(--secondary);color:#fff;padding:6px 10px;border-radius:20px;font-size:.8rem}
+        .product-info{padding:14px}
+        .product-name{font-weight:700;color:var(--primary);margin-bottom:8px}
+        .product-price{color:var(--accent);font-weight:800;margin-bottom:12px}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;padding:20px}
+        .modal-content{background:#fff;border-radius:8px;max-width:900px;width:100%;padding:18px;max-height:90vh;overflow:auto;position:relative}
+        .close-modal{position:absolute;right:14px;top:10px;font-size:1.3rem;cursor:pointer;color:var(--text-light)}
+        .product-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:10px}
+        .product-gallery img{width:100%;height:90px;object-fit:cover;border-radius:4px;cursor:pointer}
+        .webview-container{display:none;position:fixed;inset:0;background:#fff;z-index:2000;flex-direction:column}
+        .webview-header{background:var(--primary);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+        .webview-close{background:none;border:none;color:#fff;cursor:pointer}
+        footer{background:var(--dark);color:#fff;padding:30px 0;margin-top:18px}
+        .footer-content{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
+        .footer-section{min-width:220px}
+        .copyright{text-align:center;padding-top:14px;opacity:.8;font-size:.9rem;border-top:1px solid rgba(255,255,255,0.06);margin-top:12px}
+        @media(max-width:768px){.nav-container{flex-direction:column}.hero{padding:40px}.products-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}}
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
@@ -549,46 +63,37 @@
             </div>
         </div>
     </header>
-    
-    <!-- Navegação -->
+
     <nav>
         <div class="container nav-container">
-            <div class="nav-links">
-                <li><a href="#" class="active" data-page="home">Apresentação</a></li>
-                <li><a href="#" data-page="products">Produtos</a></li>
+            <div class="nav-links" role="navigation">
+                <a href="#" data-page="home" class="active">Apresentação</a>
+                <a href="#" data-page="products">Produtos</a>
             </div>
         </div>
     </nav>
-    
-    <!-- Conteúdo Principal -->
+
     <main class="container">
-        <!-- Página de Apresentação -->
         <div id="home-page" class="page active">
             <section class="hero">
                 <h2>DZM Corretor de Imóveis</h2>
                 <p>Conectando você às melhores oportunidades em Cabinda</p>
-                <a href="#" class="btn" id="view-products-btn">Ver Produtos</a>
+                <button id="view-products-btn" class="btn" style="margin-top:12px">Ver Produtos</button>
             </section>
-            
+
             <section class="about">
                 <h2>Sobre Zacarias</h2>
-                <p>Zacarias é um intermediário experiente, atuando há mais de 4 anos no mercado de Cabinda. Reconhecido pela sua seriedade, transparência e capacidade de conectar clientes às melhores oportunidades, ele construiu uma reputação sólida baseada em confiança e eficiência.</p>
-                <p>Com profundo conhecimento do mercado local, Zacarias auxilia na mediação de negócios, resolução de pendências e facilitação de processos, sempre oferecendo um atendimento personalizado e rápido.</p>
-                <p>Profissional comprometido, sempre disponível para garantir que cada cliente tenha uma experiência segura, clara e objetiva.</p>
-                
+                <p>Zacarias é um intermediário experiente, atuando há mais de 4 anos no mercado de Cabinda. Reconhecido pela sua seriedade, transparência e capacidade de conectar clientes às melhores oportunidades.</p>
                 <div class="contact-info">
-                    <p><i class="fas fa-phone"></i><strong>Telefone:</strong> 924 829 157</p>
-                    <p><i class="fas fa-map-marker-alt"></i><strong>Cidade:</strong> Cabinda</p>
+                    <p><i class="fas fa-phone"></i> <strong>Telefone:</strong> 924 829 157</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Cidade:</strong> Cabinda</p>
                 </div>
             </section>
         </div>
-        
-        <!-- Página de Produtos -->
+
         <div id="products-page" class="page">
             <h2 class="page-title">Nossos Produtos</h2>
-            
-            <!-- Categorias -->
-            <div class="categories">
+            <div class="categories" id="categories">
                 <button class="category-btn active" data-category="all">Todos</button>
                 <button class="category-btn" data-category="casas">Casas</button>
                 <button class="category-btn" data-category="terrenos">Terrenos</button>
@@ -596,43 +101,35 @@
                 <button class="category-btn" data-category="telefone">Telefone</button>
                 <button class="category-btn" data-category="outros">Outros</button>
             </div>
-            
-            <!-- Grid de Produtos -->
-            <div class="products-grid" id="products-container">
-                <!-- Os produtos serão inseridos aqui via JavaScript -->
-            </div>
+
+            <div class="products-grid" id="products-container"></div>
         </div>
     </main>
-    
-    <!-- Modal de Detalhes do Produto -->
-    <div class="modal" id="product-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div id="modal-content">
-                <!-- Conteúdo do modal será inserido aqui via JavaScript -->
-            </div>
+
+    <!-- Modal -->
+    <div class="modal" id="product-modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <div id="modal-content"></div>
         </div>
     </div>
-    
-    <!-- WebView para Anúncio -->
+
+    <!-- WebView -->
     <div class="webview-container" id="webview">
         <div class="webview-header">
             <div class="webview-title">Anúncio</div>
-            <button class="webview-close" id="close-webview">
-                <i class="fas fa-times"></i> Fechar
-            </button>
+            <button class="webview-close" id="close-webview"><i class="fas fa-times"></i> Fechar</button>
         </div>
-        <iframe class="webview-content" id="webview-frame" src="about:blank"></iframe>
+        <iframe id="webview-frame" class="webview-frame" style="flex:1;border:none" src="about:blank" title="Anúncio"></iframe>
     </div>
-    
-    <!-- Footer -->
+
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>DZM Corretor de Imóveis</h3>
                     <p>Zacarias - Intermediário experiente em Cabinda</p>
-                    <p><i class="fas fa-phone"></i> Telefone: 924 829 157</p>
+                    <p><i class="fas fa-phone"></i> 924 829 157</p>
                 </div>
                 <div class="footer-section">
                     <h3>Contato</h3>
@@ -644,282 +141,187 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 DZM Corretor de Imóveis. Todos os direitos reservados.</p>
+                &copy; 2023 DZM Corretor de Imóveis. Todos os direitos reservados.
             </div>
         </div>
     </footer>
-    
+
     <script>
-        // Dados dos produtos
+        /* Dados (os mesmos que tinhas) */
         const products = [
-            {
-                id: 1,
-                name: "Apartamento T3",
-                category: "casas",
-                price: "18.000.000 Kz",
-                description: "Apartamento A Venda Na Cidade Sendo De Tipologia T3: Três Quartos, Sala, Cozinha, WC, Varanda. Tudo Limpo Forrado e Mosaico.",
-                location: "Cabinda [Prédio Dos Solteiros]",
-                images: [
-                    "https://i.ibb.co/C5XSBfFb/apartamento1.jpg",
-                    "https://i.ibb.co/0VXBWSbQ/apartamento2.jpg",
-                    "https://i.ibb.co/Qjn6xKgD/apartamento3.jpg",
-                    "https://i.ibb.co/KcJcMjZy/apartamento4.jpg"
-                ]
-            },
-            {
-                id: 2,
-                name: "Casa T4 Mobilada",
-                category: "casas",
-                price: "350.000 Kz (negociável)",
-                description: "Arrenda-se Residência T4 Mobilada. Localização: 4 de Abril. Tipologia: T4 – 4 Quartos. Totalmente mobilada, sala equipada, cozinha com eletrodomésticos, casas de banho funcionais, água e luz disponíveis. Pronta a habitar.",
-                contact: "935 544 477",
-                const closeModalBtn = document.querySelector(".close-modal");
-        const webview = document.getElementById("webview");
-        const webviewFrame = document.getElementById("webview-frame");
-        const closeWebviewBtn = document.getElementById("close-webview");
-        const viewProductsBtn = document.getElementById("view-products-btn");
+            { id:1, name:"Apartamento T3", category:"casas", price:"18.000.000 Kz", description:"Apartamento A Venda Na Cidade Sendo De Tipologia T3: Três Quartos, Sala, Cozinha, WC, Varanda. Tudo Limpo Forrado e Mosaico.", location:"Cabinda [Prédio Dos Solteiros]", images:["https://i.ibb.co/C5XSBfFb/apartamento1.jpg","https://i.ibb.co/0VXBWSbQ/apartamento2.jpg","https://i.ibb.co/Qjn6xKgD/apartamento3.jpg","https://i.ibb.co/KcJcMjZy/apartamento4.jpg"]},
+            { id:2, name:"Casa T4 Mobilada", category:"casas", price:"350.000 Kz (negociável)", description:"Arrenda-se Residência T4 Mobilada. Localização: 4 de Abril. Tipologia: T4 – 4 Quartos. Totalmente mobilada...", contact:"935 544 477", images:["https://i.ibb.co/j9cPZmtx/casa1.jpg","https://i.ibb.co/Sw3Jjj3K/casa2.jpg","https://i.ibb.co/hR7ZbX4t/casa3.jpg","https://i.ibb.co/s9HzD5RZ/casa4.jpg"]},
+            { id:3, name:"Terreno 30/60 Metros", category:"terrenos", price:"20.000.000 Kz", description:"Vendo Este Terreno Super Localizado Em Área Estratégica. Medidas: 30/60 Metros...", images:["https://i.ibb.co/kgxD6pvN/terreno1.jpg","https://i.ibb.co/QvSPPgML/terreno2.jpg","https://i.ibb.co/7dFzgW3C/terreno3.jpg","https://i.ibb.co/BKtPnR5G/terreno4.jpg","https://i.ibb.co/Rpx5fZwD/terreno5.jpg","https://i.ibb.co/zVVr5cpS/terreno6.jpg"]},
+            { id:4, name:"Telefone 1", category:"telefone", price:"60.000 Kz", description:"Telefone Tudo Limpo e Operacional Com Direito Ao Carregador Semi Nova Na Caixa. GPS: Amilcar.", images:["https://i.ibb.co/pBT8RDfp/telefone1.jpg","https://i.ibb.co/rfmZVs06/telefone2.jpg","https://i.ibb.co/W4R7nrP3/telefone3.jpg"]},
+            { id:5, name:"Kit de Ferramentas Hilti", category:"outros", price:"1.042.015 Kz", description:"Tudo completo (com extras): 1x Martelo perf. TE 3-M 230V New...", images:["https://i.ibb.co/Z73Zr85/ferramenta1.jpg","https://i.ibb.co/KzLLvtd4/ferramenta2.jpg","https://i.ibb.co/Z1WZNb8Q/ferramenta3.jpg"]},
+            { id:6, name:"Kia Soul", category:"carros", price:"5.800.000 Kz (negociável)", description:"VENDO KIA SOUL: AC NÃO TRABALHA MAS COMPRESSOR NO LUGAR, MOTOR SELADO...", images:["https://i.ibb.co/fYQd72JZ/kia1.jpg","https://i.ibb.co/7JccRrbN/kia2.jpg","https://i.ibb.co/7twWPCFZ/kia3.jpg","https://i.ibb.co/Kjt48ZTp/kia4.jpg"]},
+            { id:7, name:"Hilux", category:"carros", price:"4.500.000 Kz (negociável)", description:"Vendo Esta Hilux. Motor Seco, Pintura Limpa. Obs: Com Problema De Turbo...", images:["https://i.ibb.co/rGZTdvy4/hilux1.jpg","https://i.ibb.co/mFFXC5Px/hilux2.jpg"]},
+            { id:8, name:"Hyundai i10", category:"carros", price:"5.000.000 Kz", description:"Vendo Está Viatura I10 1.2. Motor Seco, Caixa Automática...", images:["https://i.ibb.co/vvwv069F/i101.jpg","https://i.ibb.co/C3PXgrQz/i102.jpg","https://i.ibb.co/7txsQ6PB/i103.jpg","https://i.ibb.co/N6rVwsYz/i104.jpg","https://i.ibb.co/V0HM2CDv/i105.jpg","https://i.ibb.co/5xkkQ5DY/i106.jpg"]}
+        ];
 
-        // Troca de páginas
+        /* Elementos */
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const homePage = document.getElementById('home-page');
+        const productsPage = document.getElementById('products-page');
+        const viewProductsBtn = document.getElementById('view-products-btn');
+        const categoriesEl = document.getElementById('categories');
+        const productsContainer = document.getElementById('products-container');
+        const productModal = document.getElementById('product-modal');
+        const modalContent = document.getElementById('modal-content');
+        const closeModalBtn = document.getElementById('close-modal');
+        const webview = document.getElementById('webview');
+        const webviewFrame = document.getElementById('webview-frame');
+        const closeWebviewBtn = document.getElementById('close-webview');
+
+        /* Funções de navegação */
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            if (page === 'home') homePage.classList.add('active');
+            else productsPage.classList.add('active');
+
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('data-page') === page);
+            });
+        }
+
         navLinks.forEach(link => {
-            link.addEventListener("click", (e) => {
+            link.addEventListener('click', (e) => {
                 e.preventDefault();
-
-                navLinks.forEach(l => l.classList.remove("active"));
-                link.classList.add("active");
-
-                const page = link.getAttribute("data-page");
-
-                document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-
-                if (page === "home") {
-                    homePage.classList.add("active");
-                } else if (page === "products") {
-                    productsPage.classList.add("active");
-                }
+                showPage(link.getAttribute('data-page'));
             });
         });
 
-        // Botão "Ver Produtos" na home
-        viewProductsBtn.addEventListener("click", (e) => {
+        viewProductsBtn.addEventListener('click', (e) => {
             e.preventDefault();
-
-            navLinks.forEach(l => l.classList.remove("active"));
-            document.querySelector('a[data-page="products"]').classList.add("active");
-
-            homePage.classList.remove("active");
-            productsPage.classList.add("active");
+            // Se preferires abrir um anúncio externo no webview original, muda aqui para showWebview(url)
+            showPage('products');
+            window.scrollTo({top:0,behavior:'smooth'});
         });
 
-        // Exibir produtos
-        function displayProducts(category = "all") {
-            productsContainer.innerHTML = "";
+        /* Mostrar produtos */
+        function getCategoryLabel(cat){
+            const map = { 'casas':'Casa','terrenos':'Terreno','carros':'Carro','telefone':'Telefone','outros':'Outros' };
+            return map[cat] || cat;
+        }
 
-            const filtered = category === "all"
-                ? products
-                : products.filter(p => p.category === category);
-
+        function displayProducts(category='all'){
+            productsContainer.innerHTML = '';
+            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+            if(filtered.length === 0){
+                productsContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:24px">Nenhum produto nesta categoria.</p>';
+                return;
+            }
             filtered.forEach(product => {
-                const card = document.createElement("div");
-                card.className = "product-card";
+                const card = document.createElement('div');
+                card.className = 'product-card';
                 card.innerHTML = `
                     <div class="product-image">
-                        <img src="${product.images[0]}" alt="${product.name}">
-                        <span class="product-category">${product.category}</span>
+                        <img src="${product.images && product.images.length ? product.images[0] : 'https://via.placeholder.com/400x300?text=Sem+Imagem'}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Imagem+Não+Disponível'">
+                        <span class="product-category">${getCategoryLabel(product.category)}</span>
                     </div>
                     <div class="product-info">
                         <div class="product-name">${product.name}</div>
-                        <div class="product-price">${product.price}</div>
-                        <button class="btn" onclick="openProductModal(${product.id})">Ver Detalhes</button>
+                        <div class="product-price">${product.price || ''}</div>
+                        <button class="btn btn-details" data-id="${product.id}">Ver Detalhes</button>
                     </div>
                 `;
                 productsContainer.appendChild(card);
             });
-        }
 
-        displayProducts();
-
-        // Filtros
-        categoryBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                categoryBtns.forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-
-                const cat = btn.getAttribute("data-category");
-                displayProducts(cat);
-            });
-        });
-
-        // Abrir modal
-        window.openProductModal = (id) => {
-            const product = products.find(p => p.id === id);
-
-            modalContent.innerHTML = `
-                <h2>${product.name}</h2>
-                <p class="product-price">${product.price}</p>
-                <p class="product-description">${product.description}</p>
-
-                <h3>Imagens</h3>
-                <div class="product-gallery">
-                    ${product.images.map(img => `<img src="${img}" onclick="openImage('${img}')">`).join("")}
-                </div>
-
-                <div class="product-details">
-                    <p><strong>Categoria:</strong> ${product.category}</p>
-                    ${product.location ? `<p><strong>Localização:</strong> ${product.location}</p>` : ""}
-                    ${product.contact ? `<p><strong>Contato:</strong> ${product.contact}</p>` : ""}
-                </div>
-            `;
-
-            productModal.style.display = "block";
-        };
-
-        // Fechar modal
-        closeModalBtn.addEventListener("click", () => {
-            productModal.style.display = "none";
-        });
-
-        window.onclick = (e) => {
-            if (e.target === productModal) {
-                productModal.style.display = "none";
-            }
-        };
-
-        // Abrir imagem no WebView interno
-        window.openImage = (img) => {
-            webview.style.display = "flex";
-            webviewFrame.src = img;
-        };
-
-        // Fechar WebView
-        closeWebviewBtn.addEventListener("click", () => {
-            webview.style.display = "none";
-            webviewFrame.src = "about:blank";
-        });
-    </script>
-</body>
-</html>const closeModalBtn = document.querySelector(".close-modal");
-        const webview = document.getElementById("webview");
-        const webviewFrame = document.getElementById("webview-frame");
-        const closeWebviewBtn = document.getElementById("close-webview");
-        const viewProductsBtn = document.getElementById("view-products-btn");
-
-        // Troca de páginas
-        navLinks.forEach(link => {
-            link.addEventListener("click", (e) => {
-                e.preventDefault();
-
-                navLinks.forEach(l => l.classList.remove("active"));
-                link.classList.add("active");
-
-                const page = link.getAttribute("data-page");
-
-                document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-
-                if (page === "home") {
-                    homePage.classList.add("active");
-                } else if (page === "products") {
-                    productsPage.classList.add("active");
-                }
-            });
-        });
-
-        // Botão "Ver Produtos" na home
-        viewProductsBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-
-            navLinks.forEach(l => l.classList.remove("active"));
-            document.querySelector('a[data-page="products"]').classList.add("active");
-
-            homePage.classList.remove("active");
-            productsPage.classList.add("active");
-        });
-
-        // Exibir produtos
-        function displayProducts(category = "all") {
-            productsContainer.innerHTML = "";
-
-            const filtered = category === "all"
-                ? products
-                : products.filter(p => p.category === category);
-
-            filtered.forEach(product => {
-                const card = document.createElement("div");
-                card.className = "product-card";
-                card.innerHTML = `
-                    <div class="product-image">
-                        <img src="${product.images[0]}" alt="${product.name}">
-                        <span class="product-category">${product.category}</span>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-price">${product.price}</div>
-                        <button class="btn" onclick="openProductModal(${product.id})">Ver Detalhes</button>
-                    </div>
-                `;
-                productsContainer.appendChild(card);
+            // Adicionar listeners às buttons depois de criar os cards
+            document.querySelectorAll('.btn-details').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = Number(btn.getAttribute('data-id'));
+                    openProductModal(id);
+                });
             });
         }
 
-        displayProducts();
+        // Inicializa com todos os produtos
+        displayProducts('all');
 
-        // Filtros
-        categoryBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                categoryBtns.forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-
-                const cat = btn.getAttribute("data-category");
-                displayProducts(cat);
-            });
+        /* Filtro por categorias (event delegation) */
+        categoriesEl.addEventListener('click', (e) => {
+            const btn = e.target.closest('.category-btn');
+            if(!btn) return;
+            // actualizar estado visual
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const cat = btn.getAttribute('data-category');
+            displayProducts(cat);
         });
 
-        // Abrir modal
-        window.openProductModal = (id) => {
+        /* Modal de produto */
+        function openProductModal(id){
             const product = products.find(p => p.id === id);
-
-            modalContent.innerHTML = `
-                <h2>${product.name}</h2>
-                <p class="product-price">${product.price}</p>
-                <p class="product-description">${product.description}</p>
-
-                <h3>Imagens</h3>
-                <div class="product-gallery">
-                    ${product.images.map(img => `<img src="${img}" onclick="openImage('${img}')">`).join("")}
-                </div>
-
-                <div class="product-details">
-                    <p><strong>Categoria:</strong> ${product.category}</p>
-                    ${product.location ? `<p><strong>Localização:</strong> ${product.location}</p>` : ""}
-                    ${product.contact ? `<p><strong>Contato:</strong> ${product.contact}</p>` : ""}
-                </div>
-            `;
-
-            productModal.style.display = "block";
-        };
-
-        // Fechar modal
-        closeModalBtn.addEventListener("click", () => {
-            productModal.style.display = "none";
-        });
-
-        window.onclick = (e) => {
-            if (e.target === productModal) {
-                productModal.style.display = "none";
+            if(!product) return;
+            let html = `<h2>${product.name}</h2>`;
+            if(product.price) html += `<p class="product-price">${product.price}</p>`;
+            html += `<p>${product.description || ''}</p>`;
+            if(product.images && product.images.length){
+                html += '<h4>Imagens</h4><div class="product-gallery">';
+                product.images.forEach(img => {
+                    html += `<img src="${img}" alt="${product.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/150x120?text=No+Img'" data-full="${img}">`;
+                });
+                html += '</div>';
             }
-        };
+            html += '<div class="product-details">';
+            if(product.location) html += `<p><strong>Localização:</strong> ${product.location}</p>`;
+            if(product.contact) html += `<p><strong>Contacto:</strong> ${product.contact}</p>`;
+            html += '</div>';
+            html += `<div style="margin-top:12px"><button class="btn" id="close-modal-btn">Fechar</button></div>`;
+            modalContent.innerHTML = html;
+            productModal.style.display = 'flex';
+            productModal.setAttribute('aria-hidden','false');
 
-        // Abrir imagem no WebView interno
-        window.openImage = (img) => {
-            webview.style.display = "flex";
-            webviewFrame.src = img;
-        };
+            // clique nas miniaturas abre no webview (ou podes abrir num lightbox)
+            modalContent.querySelectorAll('.product-gallery img').forEach(imgEl => {
+                imgEl.addEventListener('click', () => {
+                    // abrir imagem no webview
+                    showWebview(imgEl.dataset.full || imgEl.src);
+                });
+            });
 
-        // Fechar WebView
-        closeWebviewBtn.addEventListener("click", () => {
-            webview.style.display = "none";
-            webviewFrame.src = "about:blank";
+            // ligar botão interno fechar
+            const closeBtn = document.getElementById('close-modal-btn');
+            if(closeBtn) closeBtn.addEventListener('click', () => closeProductModal());
+        }
+
+        function closeProductModal(){
+            productModal.style.display = 'none';
+            productModal.setAttribute('aria-hidden','true');
+            modalContent.innerHTML = '';
+        }
+
+        closeModalBtn.addEventListener('click', closeProductModal);
+        // fechar clicando fora do conteúdo
+        productModal.addEventListener('click', (e) => {
+            if(e.target === productModal) closeProductModal();
         });
+
+        /* Webview (para abrir anúncios ou imagens) */
+        function showWebview(url){
+            // proteção: se url vazia, nada
+            if(!url) return;
+            webview.style.display = 'flex';
+            webviewFrame.src = url;
+            document.body.style.overflow = 'hidden';
+        }
+        function closeWebview(){
+            webview.style.display = 'none';
+            webviewFrame.src = 'about:blank';
+            document.body.style.overflow = 'auto';
+        }
+        closeWebviewBtn.addEventListener('click', closeWebview);
+
+        // Se preferires o botão "Ver Produtos" abrir um anúncio externo, substitui a linha showPage('products') acima por:
+        // showWebview('https://otieu.com/4/10215868');
+
+        /* --- DEBUG (opcional): regista erros no console para verificação --- */
+        window.addEventListener('error', function (e) {
+            console.error('Erro detectado:', e.message, 'em', e.filename, 'linha', e.lineno);
+        });
+
     </script>
 </body>
-</html>
-          
+        </html>

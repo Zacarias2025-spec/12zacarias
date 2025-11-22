@@ -673,4 +673,253 @@
                 price: "350.000 Kz (negociável)",
                 description: "Arrenda-se Residência T4 Mobilada. Localização: 4 de Abril. Tipologia: T4 – 4 Quartos. Totalmente mobilada, sala equipada, cozinha com eletrodomésticos, casas de banho funcionais, água e luz disponíveis. Pronta a habitar.",
                 contact: "935 544 477",
+                const closeModalBtn = document.querySelector(".close-modal");
+        const webview = document.getElementById("webview");
+        const webviewFrame = document.getElementById("webview-frame");
+        const closeWebviewBtn = document.getElementById("close-webview");
+        const viewProductsBtn = document.getElementById("view-products-btn");
+
+        // Troca de páginas
+        navLinks.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                navLinks.forEach(l => l.classList.remove("active"));
+                link.classList.add("active");
+
+                const page = link.getAttribute("data-page");
+
+                document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+
+                if (page === "home") {
+                    homePage.classList.add("active");
+                } else if (page === "products") {
+                    productsPage.classList.add("active");
+                }
+            });
+        });
+
+        // Botão "Ver Produtos" na home
+        viewProductsBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            navLinks.forEach(l => l.classList.remove("active"));
+            document.querySelector('a[data-page="products"]').classList.add("active");
+
+            homePage.classList.remove("active");
+            productsPage.classList.add("active");
+        });
+
+        // Exibir produtos
+        function displayProducts(category = "all") {
+            productsContainer.innerHTML = "";
+
+            const filtered = category === "all"
+                ? products
+                : products.filter(p => p.category === category);
+
+            filtered.forEach(product => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.images[0]}" alt="${product.name}">
+                        <span class="product-category">${product.category}</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">${product.price}</div>
+                        <button class="btn" onclick="openProductModal(${product.id})">Ver Detalhes</button>
+                    </div>
+                `;
+                productsContainer.appendChild(card);
+            });
+        }
+
+        displayProducts();
+
+        // Filtros
+        categoryBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                categoryBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                const cat = btn.getAttribute("data-category");
+                displayProducts(cat);
+            });
+        });
+
+        // Abrir modal
+        window.openProductModal = (id) => {
+            const product = products.find(p => p.id === id);
+
+            modalContent.innerHTML = `
+                <h2>${product.name}</h2>
+                <p class="product-price">${product.price}</p>
+                <p class="product-description">${product.description}</p>
+
+                <h3>Imagens</h3>
+                <div class="product-gallery">
+                    ${product.images.map(img => `<img src="${img}" onclick="openImage('${img}')">`).join("")}
+                </div>
+
+                <div class="product-details">
+                    <p><strong>Categoria:</strong> ${product.category}</p>
+                    ${product.location ? `<p><strong>Localização:</strong> ${product.location}</p>` : ""}
+                    ${product.contact ? `<p><strong>Contato:</strong> ${product.contact}</p>` : ""}
+                </div>
+            `;
+
+            productModal.style.display = "block";
+        };
+
+        // Fechar modal
+        closeModalBtn.addEventListener("click", () => {
+            productModal.style.display = "none";
+        });
+
+        window.onclick = (e) => {
+            if (e.target === productModal) {
+                productModal.style.display = "none";
+            }
+        };
+
+        // Abrir imagem no WebView interno
+        window.openImage = (img) => {
+            webview.style.display = "flex";
+            webviewFrame.src = img;
+        };
+
+        // Fechar WebView
+        closeWebviewBtn.addEventListener("click", () => {
+            webview.style.display = "none";
+            webviewFrame.src = "about:blank";
+        });
+    </script>
+</body>
+</html>const closeModalBtn = document.querySelector(".close-modal");
+        const webview = document.getElementById("webview");
+        const webviewFrame = document.getElementById("webview-frame");
+        const closeWebviewBtn = document.getElementById("close-webview");
+        const viewProductsBtn = document.getElementById("view-products-btn");
+
+        // Troca de páginas
+        navLinks.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                navLinks.forEach(l => l.classList.remove("active"));
+                link.classList.add("active");
+
+                const page = link.getAttribute("data-page");
+
+                document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+
+                if (page === "home") {
+                    homePage.classList.add("active");
+                } else if (page === "products") {
+                    productsPage.classList.add("active");
+                }
+            });
+        });
+
+        // Botão "Ver Produtos" na home
+        viewProductsBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            navLinks.forEach(l => l.classList.remove("active"));
+            document.querySelector('a[data-page="products"]').classList.add("active");
+
+            homePage.classList.remove("active");
+            productsPage.classList.add("active");
+        });
+
+        // Exibir produtos
+        function displayProducts(category = "all") {
+            productsContainer.innerHTML = "";
+
+            const filtered = category === "all"
+                ? products
+                : products.filter(p => p.category === category);
+
+            filtered.forEach(product => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.images[0]}" alt="${product.name}">
+                        <span class="product-category">${product.category}</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">${product.price}</div>
+                        <button class="btn" onclick="openProductModal(${product.id})">Ver Detalhes</button>
+                    </div>
+                `;
+                productsContainer.appendChild(card);
+            });
+        }
+
+        displayProducts();
+
+        // Filtros
+        categoryBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                categoryBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                const cat = btn.getAttribute("data-category");
+                displayProducts(cat);
+            });
+        });
+
+        // Abrir modal
+        window.openProductModal = (id) => {
+            const product = products.find(p => p.id === id);
+
+            modalContent.innerHTML = `
+                <h2>${product.name}</h2>
+                <p class="product-price">${product.price}</p>
+                <p class="product-description">${product.description}</p>
+
+                <h3>Imagens</h3>
+                <div class="product-gallery">
+                    ${product.images.map(img => `<img src="${img}" onclick="openImage('${img}')">`).join("")}
+                </div>
+
+                <div class="product-details">
+                    <p><strong>Categoria:</strong> ${product.category}</p>
+                    ${product.location ? `<p><strong>Localização:</strong> ${product.location}</p>` : ""}
+                    ${product.contact ? `<p><strong>Contato:</strong> ${product.contact}</p>` : ""}
+                </div>
+            `;
+
+            productModal.style.display = "block";
+        };
+
+        // Fechar modal
+        closeModalBtn.addEventListener("click", () => {
+            productModal.style.display = "none";
+        });
+
+        window.onclick = (e) => {
+            if (e.target === productModal) {
+                productModal.style.display = "none";
+            }
+        };
+
+        // Abrir imagem no WebView interno
+        window.openImage = (img) => {
+            webview.style.display = "flex";
+            webviewFrame.src = img;
+        };
+
+        // Fechar WebView
+        closeWebviewBtn.addEventListener("click", () => {
+            webview.style.display = "none";
+            webviewFrame.src = "about:blank";
+        });
+    </script>
+</body>
+</html>
           
